@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Markdown - 标签 - Halo&#39;s blog</title>
+        <link>https://halo7777777.github.io/tags/markdown/</link>
+        <description>Markdown - 标签 - Halo&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 20 May 2020 18:12:52 &#43;0800</lastBuildDate><atom:link href="https://halo7777777.github.io/tags/markdown/" rel="self" type="application/rss+xml" /><item>
+    <title>First_post</title>
+    <link>https://halo7777777.github.io/first_post/</link>
+    <pubDate>Wed, 20 May 2020 18:12:52 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://halo7777777.github.io/first_post/</guid>
+    <description><![CDATA[Markdown由Aaron Swartz和John Gruber共同设计 Aaron Swartz的博客：http://www.aaronsw.com/ John]]></description>
+</item></channel>
+</rss>
