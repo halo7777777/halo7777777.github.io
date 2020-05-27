@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>LZ77压缩算法(C&#43;&#43;实现) - Halo&#39;s blog</title><meta name="Description" content="Halo&#39;s blog"><meta property="og:title" content="LZ77压缩算法(C&#43;&#43;实现)" />
-<meta property="og:description" content="算法原理 关键词 实例图解 代码实现 参考文章 图解LZ77压缩算法" />
+<meta property="og:description" content="算法原理 LZ77压缩算法采用字典的方式进行压缩，是一个简单但十分高效的数据压缩算法。其方式就是把数据中一些可以组织成短语(最长字符)的字符加" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/lz77/" />
 <meta property="og:image" content="http://example.org/logo.png"/>
@@ -16,7 +16,7 @@
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
 <meta name="twitter:title" content="LZ77压缩算法(C&#43;&#43;实现)"/>
-<meta name="twitter:description" content="算法原理 关键词 实例图解 代码实现 参考文章 图解LZ77压缩算法"/>
+<meta name="twitter:description" content="算法原理 LZ77压缩算法采用字典的方式进行压缩，是一个简单但十分高效的数据压缩算法。其方式就是把数据中一些可以组织成短语(最长字符)的字符加"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -34,7 +34,7 @@
                 "url": "http:\/\/example.org\/cover.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "算法, 压缩","wordcount":  29 ,
+            },"genre": "posts","keywords": "算法, 压缩","wordcount":  1643 ,
         "url": "http:\/\/example.org\/lz77\/","datePublished": "2020-05-27T16:15:13+08:00","dateModified": "2020-05-27T16:15:13+08:00","publisher": {
                 "@type": "Organization",
                 "name": "xxxx",
@@ -118,9 +118,9 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">LZ77压缩算法(C&#43;&#43;实现)</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Halo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AE%97%E6%B3%95/"><i class="far fa-folder fa-fw"></i>算法</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-05-27">2020-05-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 29 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-05-27">2020-05-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1643 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
@@ -131,16 +131,554 @@
       <ul>
         <li><a href="#算法原理">算法原理</a></li>
         <li><a href="#关键词">关键词</a></li>
-        <li><a href="#实例图解">实例图解</a></li>
-        <li><a href="#代码实现">代码实现</a></li>
+        <li><a href="#实例图解">实例图解</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#编码">编码</a></li>
+                <li><a href="#解码">解码</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#代码实现">代码实现</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#编码-1">编码</a></li>
+                <li><a href="#解码-1">解码</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h3 id="算法原理">算法原理</h3>
+<blockquote>
+<p>LZ77压缩算法采用字典的方式进行压缩，是一个简单但十分高效的数据压缩算法。其方式就是把数据中一些可以组织成短语(最长字符)的字符加入字典，然后再有相同字符出现采用标记来代替字典中的短语，如此通过标记代替多数重复出现的方式以进行压缩。</p>
+</blockquote>
+<hr>
 <h3 id="关键词">关键词</h3>
+<p><div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>向前缓冲区<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">每次读取数据的时候，先把一部分数据预载入前向缓冲区。为移入滑动窗口做准备</div>
+        </div>
+    </div>
+</br>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>滑动窗口<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一旦数据通过缓冲区，那么它将移动到滑动窗口中，并变成字典的一部分。</div>
+        </div>
+    </div>
+</br>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>短语字典<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">从字符序列S1&hellip;Sn，组成n个短语。比如字符(A,B,D) ,可以组合的短语为{(A),(A,B),(A,B,D),(B),(B,D),(D)},如果这些字符在滑动窗口里面，就可以记为当前的短语字典，因为滑动窗口不断的向前滑动，所以短语字典也是不断的变化。</div>
+        </div>
+    </div></p>
+<hr>
 <h3 id="实例图解">实例图解</h3>
+<h5 id="编码">编码</h5>
+<p><figure><a class="lightgallery" href="https://pic.downk.cc/item/5ece38b7c2a9a83be59f2b62.png" title="编码过程" data-thumbnail="https://pic.downk.cc/item/5ece38b7c2a9a83be59f2b62.png" data-sub-html="<h2>编码格式图</h2><p>编码过程</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading/normal.min.svg"
+            data-src="https://pic.downk.cc/item/5ece38b7c2a9a83be59f2b62.png"
+            data-srcset="https://pic.downk.cc/item/5ece38b7c2a9a83be59f2b62.png, https://pic.downk.cc/item/5ece38b7c2a9a83be59f2b62.png 1.5x, https://pic.downk.cc/item/5ece38b7c2a9a83be59f2b62.png 2x"
+            data-sizes="auto"
+            alt="编码过程" />
+    </a><figcaption class="image-caption">编码格式图</figcaption>
+    </figure></p>
+<blockquote>
+<p>假设滑动窗口大小为10，向前缓冲区大小为6</p>
+</blockquote>
+</br>
+<p><figure><a class="lightgallery" href="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d2.png" title="1" data-thumbnail="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d2.png" data-sub-html="<h2>步骤1</h2><p>1</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading/normal.min.svg"
+            data-src="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d2.png"
+            data-srcset="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d2.png, https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d2.png 1.5x, https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d2.png 2x"
+            data-sizes="auto"
+            alt="1" />
+    </a><figcaption class="image-caption">步骤1</figcaption>
+    </figure></p>
+<blockquote>
+<p>(1)
+</br>
+假设滑动窗口中已经编码了“abcdbbccaa”, 在之后的向前缓冲区“abaeaa”中，匹配滑动窗口字典，得到最大匹配串“ab”,则滑动窗口和编码位置移动 2+1 = 3个位置</p>
+</blockquote>
+</br>
+<p><figure><a class="lightgallery" href="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d6.png" title="2" data-thumbnail="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d6.png" data-sub-html="<h2>步骤2</h2><p>2</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading/normal.min.svg"
+            data-src="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d6.png"
+            data-srcset="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d6.png, https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d6.png 1.5x, https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d6.png 2x"
+            data-sizes="auto"
+            alt="2" />
+    </a><figcaption class="image-caption">步骤2</figcaption>
+    </figure></p>
+<blockquote>
+<p>(2)
+</br>
+在之后的向前缓冲区“eaaaba”中，匹配滑动窗口字典，无法找到匹配串,则滑动窗口和编码位置移动 0+1 = 1个位置</p>
+</blockquote>
+</br>
+<p><figure><a class="lightgallery" href="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d9.png" title="3" data-thumbnail="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d9.png" data-sub-html="<h2>步骤3</h2><p>3</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading/normal.min.svg"
+            data-src="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d9.png"
+            data-srcset="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d9.png, https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d9.png 1.5x, https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d9.png 2x"
+            data-sizes="auto"
+            alt="3" />
+    </a><figcaption class="image-caption">步骤3</figcaption>
+    </figure></p>
+<blockquote>
+<p>(3)
+</br>
+在之后的向前缓冲区“aaabae”中，匹配滑动窗口字典，得到最大匹配串“aaabae”,则滑动窗口和编码位置移动 6+1 = 7个位置,此时编码位置超过了要编码的最大长度，结束编码</p>
+</blockquote>
+</br>
+<p><figure><a class="lightgallery" href="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39dc.png" title="结果" data-thumbnail="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39dc.png" data-sub-html="<h2>编码输出结果</h2><p>结果</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading/normal.min.svg"
+            data-src="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39dc.png"
+            data-srcset="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39dc.png, https://pic.downk.cc/item/5ece38c4c2a9a83be59f39dc.png 1.5x, https://pic.downk.cc/item/5ece38c4c2a9a83be59f39dc.png 2x"
+            data-sizes="auto"
+            alt="结果" />
+    </a><figcaption class="image-caption">编码输出结果</figcaption>
+    </figure></p>
+<blockquote>
+<p>如上图，应输出02a00e46e,编码完成</p>
+</blockquote>
+<hr>
+<h5 id="解码">解码</h5>
+<blockquote>
+<p>编码过程逆向</p>
+</blockquote>
+<hr>
 <h3 id="代码实现">代码实现</h3>
+<h5 id="编码-1">编码</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span><span class="cpf">&lt;cstdio&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;iomanip&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;fstream&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;ctime&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="cm">/* 用于求KMP算法的next数组 */</span>
+<span class="kt">void</span> <span class="nf">getNext</span><span class="p">(</span><span class="kt">char</span> <span class="n">s</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="kt">char</span> <span class="n">next</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">next</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="p">{</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">next</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="p">{</span>
+            <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">next</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">ifstream</span> <span class="n">in_file</span><span class="p">;</span>
+    <span class="n">in_file</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#34;asciiart.txt&#34;</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">in</span><span class="p">);</span>
+
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">inbuf</span><span class="p">;</span>                <span class="c1">// 文件输入的数据缓存
+</span><span class="c1"></span>    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">outbuf</span><span class="p">;</span>               <span class="c1">// 输出到文件的数据缓存
+</span><span class="c1"></span>    <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">in_file</span> <span class="o">&gt;&gt;</span> <span class="n">c</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">inbuf</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">clock_t</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">;</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span>
+
+    <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="c1">// 当前指针所指inbuf的位置
+</span><span class="c1"></span>
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">SlideWindowSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>            <span class="c1">// 滑动窗口的大小
+</span><span class="c1"></span>    <span class="k">const</span> <span class="kt">int</span> <span class="n">BufferSize</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>                  <span class="c1">// 前向缓冲区大小
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">SlideWindowIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>            <span class="c1">// 当前滑动窗口的开始索引
+</span><span class="c1"></span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">pos</span> <span class="o">&lt;</span> <span class="n">inbuf</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="kt">char</span> <span class="n">text</span><span class="p">[</span><span class="n">SlideWindowSize</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="kt">char</span> <span class="n">pattern</span><span class="p">[</span><span class="n">BufferSize</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="kt">char</span> <span class="n">next</span><span class="p">[</span><span class="n">BufferSize</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+
+        <span class="n">memset</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">text</span><span class="p">));</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">pattern</span><span class="p">));</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">next</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">next</span><span class="p">));</span>
+
+        <span class="n">memcpy</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">inbuf</span><span class="p">[</span><span class="n">pos</span><span class="p">],</span> <span class="p">(</span><span class="n">pos</span> <span class="o">+</span> <span class="n">BufferSize</span> <span class="o">&gt;</span> <span class="n">inbuf</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">?</span> <span class="n">inbuf</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="nl">pos</span> <span class="p">:</span> <span class="n">BufferSize</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+        <span class="n">SlideWindowIndex</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">&gt;</span> <span class="n">SlideWindowSize</span> <span class="o">?</span> <span class="n">pos</span> <span class="o">-</span> <span class="nl">SlideWindowSize</span> <span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">memcpy</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">inbuf</span><span class="p">[</span><span class="n">SlideWindowIndex</span><span class="p">],</span> <span class="p">(</span><span class="n">pos</span> <span class="o">&gt;</span> <span class="n">SlideWindowSize</span> <span class="o">?</span> <span class="nl">SlideWindowSize</span> <span class="p">:</span> <span class="n">pos</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+
+        <span class="n">getNext</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">BufferSize</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
+
+        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">off</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">SlideWindowSize</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">pattern</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="p">{</span>
+                <span class="n">j</span> <span class="o">=</span> <span class="n">next</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">pattern</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="p">{</span>
+                <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="n">len</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">len</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">pos</span> <span class="o">&lt;</span> <span class="n">SlideWindowSize</span><span class="p">)</span>
+                    <span class="n">off</span> <span class="o">=</span> <span class="n">SlideWindowSize</span> <span class="o">-</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">;</span>
+                <span class="k">else</span>
+                    <span class="n">off</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">outbuf</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">off</span> <span class="o">+</span> <span class="sc">&#39;0&#39;</span><span class="p">);</span>
+        <span class="n">outbuf</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">len</span> <span class="o">+</span> <span class="sc">&#39;0&#39;</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">+</span> <span class="n">len</span> <span class="o">&lt;</span> <span class="n">inbuf</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>          <span class="c1">// 若最后匹配的字符串刚好结束，之后无单个字符，则不输出编码
+</span><span class="c1"></span>            <span class="n">outbuf</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">inbuf</span><span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="n">len</span><span class="p">]);</span>
+        <span class="n">pos</span> <span class="o">+=</span> <span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">in_file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+
+    <span class="n">end</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;编码时间：&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">setprecision</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mf">1000.0</span> <span class="o">*</span> <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">CLOCKS_PER_SEC</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;ms&#34;</span><span class="p">;</span>
+
+    <span class="cm">/* 写入到文件 */</span>
+    <span class="n">ofstream</span> <span class="n">out_file</span><span class="p">;</span>
+    <span class="n">out_file</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#34;asciiart.bin&#34;</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">out</span> <span class="o">|</span> <span class="n">ios</span><span class="o">::</span><span class="n">binary</span><span class="p">);</span>
+    <span class="n">out_file</span><span class="p">.</span><span class="n">write</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">outbuf</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="o">*</span> <span class="n">outbuf</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+    <span class="n">out_file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>技巧<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">使用了KMP算法来匹配最长字符串</div>
+        </div>
+    </div>
+<hr>
+<h5 id="解码-1">解码</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span><span class="cpf">&lt;cstdio&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;iomanip&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;fstream&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;queue&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;ctime&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">ifstream</span> <span class="n">in_file</span><span class="p">;</span>
+    <span class="n">in_file</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#34;asciiart.bin&#34;</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">in</span> <span class="o">|</span> <span class="n">ios</span><span class="o">::</span><span class="n">binary</span><span class="p">);</span>
+
+    <span class="n">queue</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">SlideWindow</span><span class="p">;</span>                   <span class="c1">// 滑动窗口
+</span><span class="c1"></span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">inbuf</span><span class="p">;</span>            <span class="c1">// 文件输入的数据缓存
+</span><span class="c1"></span>    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">outbuf</span><span class="p">;</span>           <span class="c1">// 输出到文件的数据缓存
+</span><span class="c1"></span>    
+    <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">in_file</span><span class="p">.</span><span class="n">read</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)))</span>
+    <span class="p">{</span>
+        <span class="n">inbuf</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="n">clock_t</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">;</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span>
+
+    <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="c1">// 当前指针所指inbuf的位置
+</span><span class="c1"></span>
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">SlideWindowSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>            <span class="c1">// 滑动窗口的大小
+</span><span class="c1"></span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">pos</span> <span class="o">&lt;</span> <span class="n">inbuf</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">inbuf</span><span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">queue</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">SlideWindow</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="p">(</span><span class="n">inbuf</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">SlideWindowSize</span> <span class="o">-</span> <span class="n">SlideWindow</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">temp</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">inbuf</span><span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">SlideWindow</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">temp</span><span class="p">.</span><span class="n">front</span><span class="p">());</span>
+                <span class="n">temp</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="n">inbuf</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>      <span class="c1">// 若最后匹配的字符串刚好结束，之后无单个字符，则不输入解码
+</span><span class="c1"></span>            <span class="n">SlideWindow</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">inbuf</span><span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">SlideWindow</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">outbuf</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">SlideWindow</span><span class="p">.</span><span class="n">front</span><span class="p">());</span>
+            <span class="n">SlideWindow</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="n">pos</span> <span class="o">+=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">in_file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+
+    <span class="n">end</span> <span class="o">=</span> <span class="n">clock</span><span class="p">();</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;解码时间：&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">setprecision</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mf">1000.0</span> <span class="o">*</span> <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">CLOCKS_PER_SEC</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;ms&#34;</span><span class="p">;</span>
+
+    <span class="cm">/* 写入到文件 */</span>
+    <span class="n">ofstream</span> <span class="n">out_file</span><span class="p">;</span>
+    <span class="n">out_file</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#34;asciiart.txt&#34;</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">out</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">outbuf</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">out_file</span> <span class="o">&lt;&lt;</span> <span class="n">outbuf</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">SlideWindow</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">out_file</span> <span class="o">&lt;&lt;</span> <span class="n">SlideWindow</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+        <span class="n">SlideWindow</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">out_file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>技巧<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">在最长匹配字符串比较多时，由于代码使用过多容器，会使解码速度下降，需要改进</div>
+        </div>
+    </div>
 <hr>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">

@@ -9,7 +9,7 @@
     <pubDate>Wed, 27 May 2020 16:15:13 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/lz77/</guid>
-    <description><![CDATA[算法原理 关键词 实例图解 代码实现 参考文章 图解LZ77压缩算法]]></description>
+    <description><![CDATA[算法原理 LZ77压缩算法采用字典的方式进行压缩，是一个简单但十分高效的数据压缩算法。其方式就是把数据中一些可以组织成短语(最长字符)的字符加]]></description>
 </item><item>
     <title>First_post</title>
     <link>http://example.org/first_post/</link>
