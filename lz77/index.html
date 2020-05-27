@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>LZ77压缩算法(C&#43;&#43;实现) - Halo&#39;s blog</title><meta name="Description" content="Halo&#39;s blog"><meta property="og:title" content="LZ77压缩算法(C&#43;&#43;实现)" />
-<meta property="og:description" content="算法原理 LZ77压缩算法采用字典的方式进行压缩，是一个简单但十分高效的数据压缩算法。其方式就是把数据中一些可以组织成短语(最长字符)的字符加" />
+<meta property="og:description" content="算法原理 ✏️LZ77压缩算法采用字典的方式进行压缩，是一个简单但十分高效的数据压缩算法。其方式就是把数据中一些可以组织成短语(最长字符)的字" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/lz77/" />
 <meta property="og:image" content="http://example.org/logo.png"/>
@@ -16,7 +16,7 @@
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
 <meta name="twitter:title" content="LZ77压缩算法(C&#43;&#43;实现)"/>
-<meta name="twitter:description" content="算法原理 LZ77压缩算法采用字典的方式进行压缩，是一个简单但十分高效的数据压缩算法。其方式就是把数据中一些可以组织成短语(最长字符)的字符加"/>
+<meta name="twitter:description" content="算法原理 ✏️LZ77压缩算法采用字典的方式进行压缩，是一个简单但十分高效的数据压缩算法。其方式就是把数据中一些可以组织成短语(最长字符)的字"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -34,7 +34,7 @@
                 "url": "http:\/\/example.org\/cover.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "算法, 压缩","wordcount":  1643 ,
+            },"genre": "posts","keywords": "算法, 压缩","wordcount":  1661 ,
         "url": "http:\/\/example.org\/lz77\/","datePublished": "2020-05-27T16:15:13+08:00","dateModified": "2020-05-27T16:15:13+08:00","publisher": {
                 "@type": "Organization",
                 "name": "xxxx",
@@ -118,7 +118,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">LZ77压缩算法(C&#43;&#43;实现)</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Halo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AE%97%E6%B3%95/"><i class="far fa-folder fa-fw"></i>算法</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-05-27">2020-05-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1643 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-05-27">2020-05-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1661 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -157,7 +157,7 @@
 </nav></div>
             </div><div class="content" id="content"><h3 id="算法原理">算法原理</h3>
 <blockquote>
-<p>LZ77压缩算法采用字典的方式进行压缩，是一个简单但十分高效的数据压缩算法。其方式就是把数据中一些可以组织成短语(最长字符)的字符加入字典，然后再有相同字符出现采用标记来代替字典中的短语，如此通过标记代替多数重复出现的方式以进行压缩。</p>
+<p>✏️LZ77压缩算法采用字典的方式进行压缩，是一个简单但十分高效的数据压缩算法。其方式就是把数据中一些可以组织成短语(最长字符)的字符加入字典，然后再有相同字符出现采用标记来代替字典中的短语，如此通过标记代替多数重复出现的方式以进行压缩。</p>
 </blockquote>
 <hr>
 <h3 id="关键词">关键词</h3>
@@ -166,7 +166,7 @@
             <i class="icon fas fa-pencil-alt fa-fw"></i>向前缓冲区<i class="details-icon fas fa-angle-right fa-fw"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content">每次读取数据的时候，先把一部分数据预载入前向缓冲区。为移入滑动窗口做准备</div>
+            <div class="admonition-content">✒️每次读取数据的时候，先把一部分数据预载入前向缓冲区。为移入滑动窗口做准备</div>
         </div>
     </div>
 </br>
@@ -175,7 +175,7 @@
             <i class="icon fas fa-pencil-alt fa-fw"></i>滑动窗口<i class="details-icon fas fa-angle-right fa-fw"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content">一旦数据通过缓冲区，那么它将移动到滑动窗口中，并变成字典的一部分。</div>
+            <div class="admonition-content">✒️一旦数据通过缓冲区，那么它将移动到滑动窗口中，并变成字典的一部分。</div>
         </div>
     </div>
 </br>
@@ -184,7 +184,7 @@
             <i class="icon fas fa-pencil-alt fa-fw"></i>短语字典<i class="details-icon fas fa-angle-right fa-fw"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content">从字符序列S1&hellip;Sn，组成n个短语。比如字符(A,B,D) ,可以组合的短语为{(A),(A,B),(A,B,D),(B),(B,D),(D)},如果这些字符在滑动窗口里面，就可以记为当前的短语字典，因为滑动窗口不断的向前滑动，所以短语字典也是不断的变化。</div>
+            <div class="admonition-content">✒️从字符序列S1&hellip;Sn，组成n个短语。比如字符(A,B,D) ,可以组合的短语为{(A),(A,B),(A,B,D),(B),(B,D),(D)},如果这些字符在滑动窗口里面，就可以记为当前的短语字典，因为滑动窗口不断的向前滑动，所以短语字典也是不断的变化。</div>
         </div>
     </div></p>
 <hr>
@@ -201,9 +201,9 @@
     </a><figcaption class="image-caption">编码格式图</figcaption>
     </figure></p>
 <blockquote>
-<p>假设滑动窗口大小为10，向前缓冲区大小为6</p>
+<p>💬 假设滑动窗口大小为10，向前缓冲区大小为6
+</br></p>
 </blockquote>
-</br>
 <p><figure><a class="lightgallery" href="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d2.png" title="1" data-thumbnail="https://pic.downk.cc/item/5ece38c4c2a9a83be59f39d2.png" data-sub-html="<h2>步骤1</h2><p>1</p>">
         <img
             class="lazyload"
@@ -215,7 +215,7 @@
     </a><figcaption class="image-caption">步骤1</figcaption>
     </figure></p>
 <blockquote>
-<p>(1)
+<p>(1) 💬
 </br>
 假设滑动窗口中已经编码了“abcdbbccaa”, 在之后的向前缓冲区“abaeaa”中，匹配滑动窗口字典，得到最大匹配串“ab”,则滑动窗口和编码位置移动 2+1 = 3个位置</p>
 </blockquote>
@@ -231,7 +231,7 @@
     </a><figcaption class="image-caption">步骤2</figcaption>
     </figure></p>
 <blockquote>
-<p>(2)
+<p>(2) 💬
 </br>
 在之后的向前缓冲区“eaaaba”中，匹配滑动窗口字典，无法找到匹配串,则滑动窗口和编码位置移动 0+1 = 1个位置</p>
 </blockquote>
@@ -247,7 +247,7 @@
     </a><figcaption class="image-caption">步骤3</figcaption>
     </figure></p>
 <blockquote>
-<p>(3)
+<p>(3) 💬
 </br>
 在之后的向前缓冲区“aaabae”中，匹配滑动窗口字典，得到最大匹配串“aaabae”,则滑动窗口和编码位置移动 6+1 = 7个位置,此时编码位置超过了要编码的最大长度，结束编码</p>
 </blockquote>
@@ -263,12 +263,12 @@
     </a><figcaption class="image-caption">编码输出结果</figcaption>
     </figure></p>
 <blockquote>
-<p>如上图，应输出02a00e46e,编码完成</p>
+<p>💬 如上图，应输出02a00e46e,编码完成</p>
 </blockquote>
 <hr>
 <h5 id="解码">解码</h5>
 <blockquote>
-<p>编码过程逆向</p>
+<p>💬 编码过程逆向</p>
 </blockquote>
 <hr>
 <h3 id="代码实现">代码实现</h3>
@@ -496,7 +496,7 @@
             <i class="icon fas fa-lightbulb fa-fw"></i>技巧<i class="details-icon fas fa-angle-right fa-fw"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content">使用了KMP算法来匹配最长字符串</div>
+            <div class="admonition-content">🚩使用了KMP算法来匹配最长字符串</div>
         </div>
     </div>
 <hr>
@@ -676,7 +676,7 @@
             <i class="icon fas fa-lightbulb fa-fw"></i>技巧<i class="details-icon fas fa-angle-right fa-fw"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content">在最长匹配字符串比较多时，由于代码使用过多容器，会使解码速度下降，需要改进</div>
+            <div class="admonition-content">⚠️在最长匹配字符串比较多时，由于代码使用过多容器，会使解码速度下降，需要改进</div>
         </div>
     </div>
 <hr>
@@ -685,7 +685,7 @@
             <i class="icon fas fa-pencil-alt fa-fw"></i>参考文章<i class="details-icon fas fa-angle-right fa-fw"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content"><a href="https://mp.weixin.qq.com/s/XGzuSF-L-qKriyRGcGs-KA" target="_blank" rel="noopener noreffer">图解LZ77压缩算法</a></div>
+            <div class="admonition-content">🎈 <a href="https://mp.weixin.qq.com/s/XGzuSF-L-qKriyRGcGs-KA" target="_blank" rel="noopener noreffer">图解LZ77压缩算法</a></div>
         </div>
     </div>
 </div><div class="post-footer" id="post-footer">
