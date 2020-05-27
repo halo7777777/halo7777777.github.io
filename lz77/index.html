@@ -5,37 +5,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>First_post - Halo&#39;s blog</title><meta name="Description" content="Halo&#39;s blog"><meta property="og:title" content="First_post" />
-<meta property="og:description" content="Markdown由Aaron Swartz和John Gruber共同设计 Aaron Swartz的博客：http://www.aaronsw.com/ John" />
+        <title>LZ77压缩算法(C&#43;&#43;实现) - Halo&#39;s blog</title><meta name="Description" content="Halo&#39;s blog"><meta property="og:title" content="LZ77压缩算法(C&#43;&#43;实现)" />
+<meta property="og:description" content="123" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/first_post/" />
+<meta property="og:url" content="http://example.org/lz77/" />
 <meta property="og:image" content="http://example.org/logo.png"/>
-<meta property="article:published_time" content="2020-05-20T18:12:52+08:00" />
-<meta property="article:modified_time" content="2020-05-20T18:12:52+08:00" />
+<meta property="article:published_time" content="2020-05-27T16:15:13+08:00" />
+<meta property="article:modified_time" content="2020-05-27T16:15:13+08:00" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
-<meta name="twitter:title" content="First_post"/>
-<meta name="twitter:description" content="Markdown由Aaron Swartz和John Gruber共同设计 Aaron Swartz的博客：http://www.aaronsw.com/ John"/>
+<meta name="twitter:title" content="LZ77压缩算法(C&#43;&#43;实现)"/>
+<meta name="twitter:description" content="123"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/first_post/" /><link rel="next" href="http://example.org/lz77/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/lz77/" /><link rel="prev" href="http://example.org/first_post/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "First_post",
+        "headline": "LZ77压缩算法(C++实现)",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/example.org\/first_post\/"
+            "@id": "http:\/\/example.org\/lz77\/"
         },"image": {
                 "@type": "ImageObject",
                 "url": "http:\/\/example.org\/cover.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "Markdown","wordcount":  220 ,
-        "url": "http:\/\/example.org\/first_post\/","datePublished": "2020-05-20T18:12:52+08:00","dateModified": "2020-05-20T18:12:52+08:00","publisher": {
+            },"genre": "posts","keywords": "算法, 压缩","wordcount":  1 ,
+        "url": "http:\/\/example.org\/lz77\/","datePublished": "2020-05-27T16:15:13+08:00","dateModified": "2020-05-27T16:15:13+08:00","publisher": {
                 "@type": "Organization",
                 "name": "xxxx",
                 "logo": {
@@ -116,9 +116,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">First_post</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Halo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/first_test/"><i class="far fa-folder fa-fw"></i>first_test</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-05-20">2020-05-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 220 字&nbsp;
+        </div><article class="page single"><h1 class="single-title animated flipInX">LZ77压缩算法(C&#43;&#43;实现)</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Halo</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AE%97%E6%B3%95/"><i class="far fa-folder fa-fw"></i>算法</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-05-27">2020-05-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
@@ -126,39 +126,33 @@
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-            </div><div class="content" id="content"><p>Markdown由Aaron Swartz和John Gruber共同设计</p>
-<ul>
-<li>Aaron Swartz的博客：<a href="http://www.aaronsw.com/" target="_blank" rel="noopener noreffer">http://www.aaronsw.com/</a></li>
-<li>John Gruber的博客： <a href="https://daringfireball.net/" target="_blank" rel="noopener noreffer">https://daringfireball.net/ </a></li>
-</ul>
-<p>作者中的Aaron Swartz是天才程序员，著名社交网站<a href="http://www.reddit.com/" target="_blank" rel="noopener noreffer">Reddit</a>的联合创始人，14岁参与RSS 1.0规格标准的制订，致力于网络信息开放。在2011年7月19日，因被指控从MIT和JSTOR下载480万篇学术论文并以免费形式上传于网络被捕，2013年1月自杀身亡，年仅26岁。</p>
+            </div><div class="content" id="content"><p>123</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2020-05-20</span>
+                <span>更新于 2020-05-27</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/first_post/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/lz77/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/first_post/" data-title="First_post" data-hashtags="Markdown"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/first_post/" data-hashtag="Markdown"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/first_post/" data-title="First_post" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/first_post/" data-title="First_post"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/first_post/" data-title="First_post"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/first_post/" data-title="First_post" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/first_post/" data-title="First_post" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/first_post/" data-title="First_post"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://example.org/lz77/" data-title="LZ77压缩算法(C&#43;&#43;实现)" data-hashtags="算法,压缩"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://example.org/lz77/" data-hashtag="算法"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="http://example.org/lz77/" data-title="LZ77压缩算法(C&#43;&#43;实现)" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://example.org/lz77/" data-title="LZ77压缩算法(C&#43;&#43;实现)"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://example.org/lz77/" data-title="LZ77压缩算法(C&#43;&#43;实现)"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="http://example.org/lz77/" data-title="LZ77压缩算法(C&#43;&#43;实现)" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="http://example.org/lz77/" data-title="LZ77压缩算法(C&#43;&#43;实现)" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="http://example.org/lz77/" data-title="LZ77压缩算法(C&#43;&#43;实现)"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/markdown/">Markdown</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>,&nbsp;<a href="/tags/%E5%8E%8B%E7%BC%A9/">压缩</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav">
-            <a href="/lz77/" class="next" rel="next" title="LZ77压缩算法(C&#43;&#43;实现)">LZ77压缩算法(C&#43;&#43;实现)<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/first_post/" class="prev" rel="prev" title="First_post"><i class="fas fa-angle-left fa-fw"></i>First_post</a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">

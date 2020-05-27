@@ -2,10 +2,14 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://halo7777777.github.io/categories/</loc><lastmod>2020-05-20T18:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://halo7777777.github.io/first_post/</loc><lastmod>2020-05-20T18:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://halo7777777.github.io/categories/first_test/</loc><lastmod>2020-05-20T18:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://halo7777777.github.io/</loc><lastmod>2020-05-20T18:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://halo7777777.github.io/tags/markdown/</loc><lastmod>2020-05-20T18:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://halo7777777.github.io/posts/</loc><lastmod>2020-05-20T18:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://halo7777777.github.io/tags/</loc><lastmod>2020-05-20T18:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
+            <loc>http://example.org/categories/</loc><lastmod>2020-05-27T16:15:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/</loc><lastmod>2020-05-27T16:15:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/lz77/</loc><lastmod>2020-05-27T16:15:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/posts/</loc><lastmod>2020-05-27T16:15:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/tags/</loc><lastmod>2020-05-27T16:15:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/tags/%E5%8E%8B%E7%BC%A9/</loc><lastmod>2020-05-27T16:15:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/tags/%E7%AE%97%E6%B3%95/</loc><lastmod>2020-05-27T16:15:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/categories/%E7%AE%97%E6%B3%95/</loc><lastmod>2020-05-27T16:15:13&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/first_post/</loc><lastmod>2020-05-20T18:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/categories/first_test/</loc><lastmod>2020-05-20T18:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/tags/markdown/</loc><lastmod>2020-05-20T18:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>

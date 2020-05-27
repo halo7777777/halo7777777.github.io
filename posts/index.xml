@@ -1,14 +1,21 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>所有文章 - Halo&#39;s blog</title>
-        <link>https://halo7777777.github.io/posts/</link>
+        <link>http://example.org/posts/</link>
         <description>所有文章 | Halo&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 20 May 2020 18:12:52 &#43;0800</lastBuildDate><atom:link href="https://halo7777777.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 27 May 2020 16:15:13 &#43;0800</lastBuildDate><atom:link href="http://example.org/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>LZ77压缩算法(C&#43;&#43;实现)</title>
+    <link>http://example.org/lz77/</link>
+    <pubDate>Wed, 27 May 2020 16:15:13 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/lz77/</guid>
+    <description><![CDATA[123]]></description>
+</item><item>
     <title>First_post</title>
-    <link>https://halo7777777.github.io/first_post/</link>
+    <link>http://example.org/first_post/</link>
     <pubDate>Wed, 20 May 2020 18:12:52 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://halo7777777.github.io/first_post/</guid>
+    <guid>http://example.org/first_post/</guid>
     <description><![CDATA[Markdown由Aaron Swartz和John Gruber共同设计 Aaron Swartz的博客：http://www.aaronsw.com/ John]]></description>
 </item></channel>
 </rss>

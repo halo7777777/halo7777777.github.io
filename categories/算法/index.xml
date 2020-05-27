@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>算法 - 分类 - Halo&#39;s blog</title>
+        <link>http://example.org/categories/%E7%AE%97%E6%B3%95/</link>
+        <description>算法 - 分类 - Halo&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 27 May 2020 16:15:13 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+    <title>LZ77压缩算法(C&#43;&#43;实现)</title>
+    <link>http://example.org/lz77/</link>
+    <pubDate>Wed, 27 May 2020 16:15:13 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/lz77/</guid>
+    <description><![CDATA[123]]></description>
+</item></channel>
+</rss>
